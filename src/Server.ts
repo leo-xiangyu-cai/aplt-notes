@@ -1,10 +1,10 @@
 import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import cors from "koa2-cors";
-import logger from "./utils/logger";
+import logger from "./Utils/logger";
 import {config} from "./config";
 import koaLogger from "koa-logger";
-import healthcheckRouters from "./routes/health-check.router";
+import healthcheckRouters from "./Routes/HealthCheck.router";
 
 const app = new Koa();
 
