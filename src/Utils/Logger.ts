@@ -1,5 +1,5 @@
 import log4js from 'log4js';
-import {config, Environment} from "../config";
+import {config, Environment} from "../Config";
 
 // Create a global logger instance
 const logger = log4js.getLogger();

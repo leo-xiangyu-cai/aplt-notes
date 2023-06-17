@@ -1,13 +1,16 @@
 import Router from "koa-router";
-import {Note} from "../DataSource/entities/note.entity";
+import {Note} from "../DataSource/Entities/Note.entity";
 import {AddNoteRequest} from "../request/AddNoteRequest";
 import logger from "../Utils/Logger";
 import {UpdateNoteRequest} from "../Request/UpdateNoteRequest";
+import {DataSourceUtils} from "../DataSource/DataSourceUtils";
 
 const router = new Router();
 let notes: Note[] = [];
 
 router.get('/notes', async (ctx) => {
+  let notes = await DataSourceUtils.getDataSource().getRepository(Note).find();
+  logger.info(`notes: ${JSON.stringify(notes)}`);
   ctx.body = {
     message: 'success',
     data: {
@@ -18,12 +21,12 @@ router.get('/notes', async (ctx) => {
 
 router.get('/notes/:id', async (ctx) => {
   const id = ctx.params.id;
-  const filteredNotes = notes.filter(x => x.id === id);
-  if (filteredNotes.length > 0) {
+  let note = await DataSourceUtils.getDataSource().getRepository(Note).findOne({where: {id}});
+  if (note) {
     ctx.body = {
       message: 'success',
       data: {
-        notes: filteredNotes[0]
+        notes: note
       }
     }
   } else {
@@ -37,21 +40,29 @@ router.get('/notes/:id', async (ctx) => {
 router.post('/notes', async (ctx) => {
   let addNoteRequest = new AddNoteRequest(ctx.request.body);
   let newNote = new Note(addNoteRequest.title, addNoteRequest.content);
-  notes.push(newNote);
-  // let note = await DataSourceUtils.getDataSource().getRepository(Note).save(newNote);
+  let note = await DataSourceUtils.getDataSource().getRepository(Note).save(newNote);
   ctx.status = 201;
   ctx.body = {
     message: 'success',
     data: {
-      note: newNote
+      note: note
     }
   }
 });
 
 router.delete('/notes/:id', async (ctx) => {
-  notes = notes.filter(x => x.id !== ctx.params.id);
-  ctx.body = {
-    message: 'success'
+  const id = ctx.params.id;
+  let deleteResult = await DataSourceUtils.getDataSource().getRepository(Note).delete({id});
+  if (deleteResult.affected === 0) {
+    ctx.status = 404
+    ctx.body = {
+      message: `Cannot find note with id: ${id}`
+    }
+  } else {
+    ctx.body = {
+      message: 'success',
+    }
+
   }
 });
 
