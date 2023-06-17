@@ -1,15 +1,13 @@
 import Router from "koa-router";
-import {Note} from "../DataSource/Entities/Note.entity";
 import {AddNoteRequest} from "../request/AddNoteRequest";
 import logger from "../Utils/Logger";
 import {UpdateNoteRequest} from "../Request/UpdateNoteRequest";
-import {DataSourceUtils} from "../DataSource/DataSourceUtils";
+import NoteDbModel from "../DataSource/Models/Note.db.model";
 
 const router = new Router();
-let notes: Note[] = [];
 
 router.get('/notes', async (ctx) => {
-  let notes = await DataSourceUtils.getDataSource().getRepository(Note).find();
+  let notes = await NoteDbModel.getAll();
   logger.info(`notes: ${JSON.stringify(notes)}`);
   ctx.body = {
     message: 'success',
@@ -21,7 +19,7 @@ router.get('/notes', async (ctx) => {
 
 router.get('/notes/:id', async (ctx) => {
   const id = ctx.params.id;
-  let note = await DataSourceUtils.getDataSource().getRepository(Note).findOne({where: {id}});
+  let note = await NoteDbModel.getById(id);
   if (note) {
     ctx.body = {
       message: 'success',
@@ -39,8 +37,7 @@ router.get('/notes/:id', async (ctx) => {
 
 router.post('/notes', async (ctx) => {
   let addNoteRequest = new AddNoteRequest(ctx.request.body);
-  let newNote = new Note(addNoteRequest.title, addNoteRequest.content);
-  let note = await DataSourceUtils.getDataSource().getRepository(Note).save(newNote);
+  let note = await NoteDbModel.create(addNoteRequest.title, addNoteRequest.content);
   ctx.status = 201;
   ctx.body = {
     message: 'success',
@@ -52,43 +49,51 @@ router.post('/notes', async (ctx) => {
 
 router.delete('/notes/:id', async (ctx) => {
   const id = ctx.params.id;
-  let deleteResult = await DataSourceUtils.getDataSource().getRepository(Note).delete({id});
-  if (deleteResult.affected === 0) {
+  let deleteResult = await NoteDbModel.deleteById(id);
+  if (deleteResult) {
+    ctx.body = {
+      message: 'success',
+    }
+  } else {
     ctx.status = 404
     ctx.body = {
       message: `Cannot find note with id: ${id}`
     }
-  } else {
-    ctx.body = {
-      message: 'success',
-    }
-
   }
 });
 
 router.patch('/notes/:id', async (ctx) => {
-  let updateNoteRequest = new UpdateNoteRequest(ctx.request.body);
-  const note = notes.find(x => x.id === ctx.params.id);
-  if (note) {
-    if (updateNoteRequest.title) {
-      note.title = updateNoteRequest.title;
-    }
-    if (updateNoteRequest.content) {
-      note.content = updateNoteRequest.content;
-    }
-    logger.info(`note: ${JSON.stringify(note)}`);
-    ctx.body = {
-      message: 'success',
-      data: {
-        note: note
+    let updateNoteRequest = new UpdateNoteRequest(ctx.request.body);
+
+    let note = await NoteDbModel.updateById(ctx.params.id, updateNoteRequest.title, updateNoteRequest.content);
+    if (note) {
+      if (updateNoteRequest.title) {
+        note.title = updateNoteRequest.title;
+      }
+      if (updateNoteRequest.content) {
+        note.content = updateNoteRequest.content;
+      }
+      ctx.body = {
+        message: 'success',
+        data: {
+          note: note
+        }
+      }
+    } else {
+      if (await NoteDbModel.getById(ctx.params.id)) {
+        ctx.status = 400
+        ctx.body = {
+          message: 'Invalid request body'
+        }
+      } else {
+        ctx.status = 404
+        ctx.body = {
+          message: `Cannot find note with id: ${ctx.params.id}`
+        }
       }
     }
-  } else {
-    ctx.status = 404
-    ctx.body = {
-      message: `Cannot find note with id: ${ctx.params.id}`
-    }
   }
-});
+)
+;
 
 export default router;
