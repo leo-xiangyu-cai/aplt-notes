@@ -4,6 +4,8 @@ import logger from "../Utils/Logger";
 import {UpdateNoteRequest} from "../Request/UpdateNoteRequest";
 import NoteDbModel from "../DataSource/Models/Note.db.model";
 
+const Authorise = require('../middleware/Authorise');
+
 const router = new Router();
 
 router.get('/notes', async (ctx) => {
@@ -35,19 +37,19 @@ router.get('/notes/:id', async (ctx) => {
   }
 });
 
-router.post('/notes', async (ctx) => {
+router.post('/notes', Authorise, async (ctx) => {
   let addNoteRequest = new AddNoteRequest(ctx.request.body);
   let note = await NoteDbModel.create(addNoteRequest.title, addNoteRequest.content);
   ctx.status = 201;
   ctx.body = {
-    message: 'success',
+    message: 'success:',
     data: {
       note: note
     }
   }
 });
 
-router.delete('/notes/:id', async (ctx) => {
+router.delete('/notes/:id', Authorise, async (ctx) => {
   const id = ctx.params.id;
   let deleteResult = await NoteDbModel.deleteById(id);
   if (deleteResult) {
@@ -62,7 +64,7 @@ router.delete('/notes/:id', async (ctx) => {
   }
 });
 
-router.patch('/notes/:id', async (ctx) => {
+router.patch('/notes/:id', Authorise, async (ctx) => {
     let updateNoteRequest = new UpdateNoteRequest(ctx.request.body);
 
     let note = await NoteDbModel.updateById(ctx.params.id, updateNoteRequest.title, updateNoteRequest.content);
