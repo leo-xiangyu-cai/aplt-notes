@@ -3,6 +3,7 @@ import {AddNoteRequest} from "../request/AddNoteRequest";
 import logger from "../Utils/Logger";
 import {UpdateNoteRequest} from "../Request/UpdateNoteRequest";
 import NoteDbModel from "../DataSource/Models/Note.db.model";
+import UserDbModel from "../DataSource/Models/User.db.model";
 
 const Authorise = require('../middleware/Authorise');
 
@@ -39,7 +40,7 @@ router.get('/notes/:id', async (ctx) => {
 
 router.post('/notes', Authorise, async (ctx) => {
   let addNoteRequest = new AddNoteRequest(ctx.request.body);
-  let note = await NoteDbModel.create(addNoteRequest.title, addNoteRequest.content);
+  let note = await NoteDbModel.create(ctx.state.userId, addNoteRequest.title, addNoteRequest.content);
   ctx.status = 201;
   ctx.body = {
     message: 'success:',
@@ -51,6 +52,14 @@ router.post('/notes', Authorise, async (ctx) => {
 
 router.delete('/notes/:id', Authorise, async (ctx) => {
   const id = ctx.params.id;
+  const note = await NoteDbModel.getById(id);
+  if (note?.authorId !== ctx.state.userId) {
+    ctx.status = 403
+    ctx.body = {
+      message: 'Forbidden'
+    }
+    return;
+  }
   let deleteResult = await NoteDbModel.deleteById(id);
   if (deleteResult) {
     ctx.body = {
@@ -69,6 +78,13 @@ router.patch('/notes/:id', Authorise, async (ctx) => {
 
     let note = await NoteDbModel.updateById(ctx.params.id, updateNoteRequest.title, updateNoteRequest.content);
     if (note) {
+      if (note.authorId !== ctx.state.userId) {
+        ctx.status = 403
+        ctx.body = {
+          message: 'Forbidden'
+        }
+        return;
+      }
       if (updateNoteRequest.title) {
         note.title = updateNoteRequest.title;
       }

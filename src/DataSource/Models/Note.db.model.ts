@@ -1,5 +1,6 @@
 import {Note} from "../Entities/Note.entity";
 import {DataSourceUtils} from "../DataSourceUtils";
+import {ObjectLiteral} from "typeorm";
 
 export default class NoteDbModel {
 
@@ -11,11 +12,11 @@ export default class NoteDbModel {
     return DataSourceUtils.getDataSource().getRepository(Note).findOneBy({id});
   }
 
-  static async create(title: string, content: string): Promise<Note> {
-    return DataSourceUtils.getDataSource().getRepository(Note).save(new Note(title, content));
+  static async create(userId: string, title: string, content: string): Promise<Note> {
+    return DataSourceUtils.getDataSource().getRepository(Note).save(new Note(userId, title, content));
   }
 
-  static async updateById(id: string, title: string, content: string): Promise<Note | null> {
+  static async updateById(id: string, title: string, content: string): Promise<ObjectLiteral | null> {
     const note = await DataSourceUtils.getDataSource().getRepository(Note).findOneBy({id});
     if (note) {
       if (title) {

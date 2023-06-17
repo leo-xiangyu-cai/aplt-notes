@@ -7,6 +7,10 @@ export default class UserDbModel {
     return DataSourceUtils.getDataSource().getRepository(User).findOneBy({username: username});
   }
 
+  static async getById(id: string): Promise<User | null> {
+    return DataSourceUtils.getDataSource().getRepository(User).findOneBy({id});
+  }
+
   static async create(user: User): Promise<User> {
     return DataSourceUtils.getDataSource().getRepository(User).save(user);
   }
