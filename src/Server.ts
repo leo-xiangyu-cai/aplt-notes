@@ -7,6 +7,7 @@ import koaLogger from "koa-logger";
 import healthcheckRouters from "./Routes/HealthCheck.router";
 import noteRouter from "./Routes/Note.router";
 import {DataSourceUtils} from "./DataSource/DataSourceUtils";
+import authRouter from "./Routes/Auth.router";
 
 const app = new Koa();
 
@@ -21,6 +22,7 @@ app.use(koaLogger());
 
 app.use(healthcheckRouters.routes());
 app.use(noteRouter.routes());
+app.use(authRouter.routes());
 
 DataSourceUtils.getDataSource().initialize()
   .then(async (x) => {

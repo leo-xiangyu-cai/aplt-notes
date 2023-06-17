@@ -1,4 +1,3 @@
-
 export class UpdateNoteRequest {
 
   title: string;
