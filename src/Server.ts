@@ -1,10 +1,11 @@
 import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import cors from "koa2-cors";
-import logger from "./Utils/logger";
+import logger from "./Utils/Logger";
 import {config} from "./config";
 import koaLogger from "koa-logger";
 import healthcheckRouters from "./Routes/HealthCheck.router";
+import noteRouter from "./Routes/Note.router";
 
 const app = new Koa();
 
@@ -18,6 +19,7 @@ app.use(
 app.use(koaLogger());
 
 app.use(healthcheckRouters.routes());
+app.use(noteRouter.routes());
 
 const server = app.listen(config.port, async () => {
   logger.info(`
