@@ -4,7 +4,7 @@ import cors from "koa2-cors";
 import logger from "./Utils/Logger";
 import {config} from "./Config";
 import koaLogger from "koa-logger";
-import healthcheckRouters from "./Routes/HealthCheck.router";
+import healthCheckRouters from "./Routes/HealthCheck.router";
 import noteRouter from "./Routes/Note.router";
 import {DataSourceUtils} from "./DataSource/DataSourceUtils";
 import authRouter from "./Routes/Auth.router";
@@ -20,7 +20,7 @@ app.use(
 
 app.use(koaLogger());
 
-app.use(healthcheckRouters.routes());
+app.use(healthCheckRouters.routes());
 app.use(noteRouter.routes());
 app.use(authRouter.routes());
 

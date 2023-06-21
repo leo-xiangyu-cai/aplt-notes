@@ -3,7 +3,6 @@ import {AddNoteRequest} from "../request/AddNoteRequest";
 import logger from "../Utils/Logger";
 import {UpdateNoteRequest} from "../Request/UpdateNoteRequest";
 import NoteDbModel from "../DataSource/Models/Note.db.model";
-import UserDbModel from "../DataSource/Models/User.db.model";
 
 const Authorise = require('../middleware/Authorise');
 
@@ -11,7 +10,6 @@ const router = new Router();
 
 router.get('/notes', async (ctx) => {
   let notes = await NoteDbModel.getAll();
-  logger.info(`notes: ${JSON.stringify(notes)}`);
   ctx.body = {
     message: 'success',
     data: {
