@@ -1,0 +1,25 @@
+import {Server} from 'http';
+import {describe} from "node:test";
+import request from "supertest";
+import KoaApp from "../../src/KoaApp";
+
+const koaApp = new KoaApp();
+let server: Server;
+beforeAll(async () => {
+  server = await koaApp.start();
+});
+
+afterAll(done => {
+  koaApp.stop();
+  done();
+});
+
+describe("health-check.router", () => {
+  it("/ping", async () => {
+    console.log("start test ping")
+    const response = await request(server).get("/ping");
+    expect(response.status).toBe(200);
+    expect(response.type).toBe("application/json");
+    expect(response.body.message).toBe("pong");
+  });
+})
