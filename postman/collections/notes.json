@@ -1,0 +1,118 @@
+[
+  {
+    "name": "/notes",
+    "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+        "raw": "{{url}}/notes",
+        "host": [
+          "{{url}}"
+        ],
+        "path": [
+          "notes"
+        ]
+      }
+    },
+    "response": []
+  },
+  {
+    "name": "/notes/:id",
+    "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+        "raw": "{{url}}/notes/:id",
+        "host": [
+          "{{url}}"
+        ],
+        "path": [
+          "notes",
+          ":id"
+        ]
+      }
+    },
+    "response": []
+  },
+  {
+    "name": "/notes/:id",
+    "request": {
+      "method": "DELETE",
+      "header": [],
+      "url": {
+        "raw": "{{url}}/notes/:id",
+        "host": [
+          "{{url}}"
+        ],
+        "path": [
+          "notes",
+          ":id"
+        ]
+      }
+    },
+    "response": []
+  },
+  {
+    "name": "/notes",
+    "request": {
+      "method": "POST",
+      "header": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mode": "raw",
+        "raw": "{\n    \"title\": \"<YOUR_TITLE>\",\n    \"content\": \"<YOUR_CONTENT>\"\n}",
+        "options": {
+          "raw": {
+            "language": "json"
+          }
+        }
+      },
+      "url": {
+        "raw": "{{url}}/notes",
+        "host": [
+          "{{url}}"
+        ],
+        "path": [
+          "notes"
+        ]
+      }
+    },
+    "response": []
+  },
+  {
+    "name": "/notes/:id",
+    "request": {
+      "method": "PATCH",
+      "header": [
+        {
+          "key": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mode": "raw",
+        "raw": "{\n    \"content\": \"<YOUR_UPDATED_CONTENT>\"\n}",
+        "options": {
+          "raw": {
+            "language": "json"
+          }
+        }
+      },
+      "url": {
+        "raw": "{{url}}/notes/:id",
+        "host": [
+          "{{url}}"
+        ],
+        "path": [
+          "notes",
+          ":id"
+        ]
+      }
+    },
+    "response": []
+  }
+]

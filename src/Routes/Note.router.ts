@@ -1,6 +1,5 @@
 import Router from "koa-router";
-import {AddNoteRequest} from "../request/AddNoteRequest";
-import logger from "../Utils/Logger";
+import {AddNoteRequest} from "../Request/AddNoteRequest";
 import {UpdateNoteRequest} from "../Request/UpdateNoteRequest";
 import NoteDbModel from "../DataSource/Models/Note.db.model";
 
