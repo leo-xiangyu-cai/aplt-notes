@@ -1,11 +1,11 @@
 import Router from "koa-router";
-import {AddNoteRequest} from "../request/AddNoteRequest";
+import {AddNoteRequest} from "../Request/AddNoteRequest";
 import logger from "../Utils/Logger";
 import {UpdateNoteRequest} from "../Request/UpdateNoteRequest";
 import NoteDbModel from "../DataSource/Models/Note.db.model";
-import UserDbModel from "../DataSource/Models/User.db.model";
+// import UserDbModel from "../DataSource/Models/User.db.model";
 
-const Authorise = require('../middleware/Authorise');
+const Authorise = require('../Middleware/Authorise');
 
 const router = new Router();
 
@@ -40,8 +40,8 @@ router.get('/notes/:id', async (ctx) => {
 
 router.post('/notes', Authorise, async (ctx) => {
   let addNoteRequest = new AddNoteRequest(ctx.request.body);
-  let note = await NoteDbModel.create(ctx.state.userId, addNoteRequest.title, addNoteRequest.content);
-  ctx.status = 201;
+  let note = await NoteDbModel.create(ctx.state.userId, addNoteRequest.title, addNoteRequest.content); // save data in note
+  ctx.status = 201; // created
   ctx.body = {
     message: 'success:',
     data: {
