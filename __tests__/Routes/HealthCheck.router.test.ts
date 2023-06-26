@@ -2,11 +2,12 @@ import {Server} from 'http';
 import {describe} from "node:test";
 import request from "supertest";
 import KoaApp from "../../src/KoaApp";
+import {Environment} from "../../src/Config";
 
 const koaApp = new KoaApp();
 let server: Server;
 beforeAll(async () => {
-  server = await koaApp.start();
+  server = await koaApp.start(Environment.TEST);
 });
 
 afterAll(done => {
