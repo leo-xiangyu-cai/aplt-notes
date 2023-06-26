@@ -17,8 +17,10 @@ afterAll(done => {
 
 describe("health-check.router", () => {
   it("/ping", async () => {
-    console.log("start test ping")
+    // act
     const response = await request(server).get("/ping");
+
+    // assert
     expect(response.status).toBe(200);
     expect(response.type).toBe("application/json");
     expect(response.body.message).toBe("pong");

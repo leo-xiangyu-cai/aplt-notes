@@ -20,13 +20,14 @@ afterAll(done => {
 
 describe("note.router", () => {
   it('it should GET all the notes', async () => {
+    // arrange
     const mockNote = {title: 'test note', content: 'test content'};
-
-    // This line mock the response of getAll method
     (NoteDbModel.getAll as jest.Mock).mockResolvedValueOnce([mockNote]);
 
+    // act
     const response = await request(server).get('/notes');
 
+    // assert
     expect(response.status).toBe(200);
     expect(response.body).toEqual({
       message: 'success',
