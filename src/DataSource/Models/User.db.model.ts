@@ -1,17 +1,17 @@
-import {User} from "../Entities/User.entity";
+import {UserEntity} from "../Entities/User.entity";
 import {DataSourceUtils} from "../DataSourceUtils";
 
 export default class UserDbModel {
 
-  static async getByUsername(username: string): Promise<User | null> {
-    return DataSourceUtils.getDataSource().getRepository(User).findOneBy({username: username});
+  static async getByUsername(username: string): Promise<UserEntity | null> {
+    return DataSourceUtils.getDataSource().getRepository(UserEntity).findOneBy({username: username});
   }
 
-  static async getById(id: string): Promise<User | null> {
-    return DataSourceUtils.getDataSource().getRepository(User).findOneBy({id});
+  static async getById(id: string): Promise<UserEntity | null> {
+    return DataSourceUtils.getDataSource().getRepository(UserEntity).findOneBy({id});
   }
 
-  static async create(user: User): Promise<User> {
-    return DataSourceUtils.getDataSource().getRepository(User).save(user);
+  static async create(user: UserEntity): Promise<UserEntity> {
+    return DataSourceUtils.getDataSource().getRepository(UserEntity).save(user);
   }
 }
