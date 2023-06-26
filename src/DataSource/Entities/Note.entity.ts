@@ -1,5 +1,5 @@
 import {Entity, Column, PrimaryColumn, ManyToOne} from "typeorm"
-import {v4 as uuidv4} from "uuid";
+import {v4 as uuidv4} from "uuid"; //unique id
 // Add Note Entity
 @Entity()
 export class Note {

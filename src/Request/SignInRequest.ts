@@ -1,3 +1,4 @@
+import {validateLength} from "../Middleware/VaildateLength";
 export class SingInRequest {
 
   username: string;

@@ -8,6 +8,7 @@ export class HashingService {
    * @param salt - The salt to use in the hashing process.
    * @returns The hashed password.
    */
+  //加密
   static hashText(password: string, salt: string | null = null): string {
     const iterations = 10000; // The number of iterations, adjustable as per requirements
     const keyLength = 64; // The length of the derived key, adjustable as per requirements

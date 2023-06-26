@@ -1,7 +1,7 @@
 import {Note} from "../Entities/Note.entity";
 import {DataSourceUtils} from "../DataSourceUtils";
 import {ObjectLiteral} from "typeorm";
-
+//操作数据库
 export default class NoteDbModel {
 
   static async getAll(): Promise<Note[]> {

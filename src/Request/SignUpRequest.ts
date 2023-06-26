@@ -10,6 +10,9 @@
 //     this.password = requestBody.password;
 //   }
 // }
+
+
+import {validateLength} from "../Middleware/VaildateLength";
 export class SignUpRequest {
   username: string;
   password: string;
@@ -19,12 +22,4 @@ export class SignUpRequest {
     this.password = validateLength(requestBody.password, 6); // 添加长度验证
   }
 }
-const validateLength = (value: string, minLength: number, maxLength?: number): string => {
-  if (value.length < minLength) {
-    throw Error(`Value length must be at least ${minLength}`);
-  }
-  if (maxLength && value.length > maxLength) {
-    throw Error(`Value length must be at most ${maxLength}`);
-  }
-  return value;
-};
+
