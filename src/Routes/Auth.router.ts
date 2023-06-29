@@ -1,6 +1,6 @@
 import Router from "koa-router";
 import {SignUpRequest} from "../Request/SignUpRequest";
-import {User} from "../DataSource/Entities/User.entity";
+import {UserEntity} from "../DataSource/Entities/User.entity";
 import UserDbModel from "../DataSource/Models/User.db.model";
 import {TokenGenerator} from "../Utils/TokenGenerator";
 import {SingInRequest} from "../Request/SignInRequest";
@@ -17,7 +17,7 @@ router.post('/sign-up', async (ctx) => {
       message: 'Username already exists',
     }
   } else {
-    let newUser = new User(addNoteRequest.username, HashingService.hashText(addNoteRequest.password));
+    let newUser = new UserEntity(addNoteRequest.username, HashingService.hashText(addNoteRequest.password));
     let newRegisteredUser = await UserDbModel.create(newUser);
     if (newRegisteredUser) {
       ctx.status = 201;

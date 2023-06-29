@@ -1,0 +1,79 @@
+{
+  "info": {
+    "_postman_id": "214ad7b2-55c2-42ef-a1d7-d6ca53bf7daf",
+    "name": "aplt-notes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1181080"
+  },
+  "item": [
+    {
+      "name": "/ping",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{url}}/ping",
+          "host": [
+            "{{local_url}}"
+          ],
+          "path": [
+            "ping"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/sign-up",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"How to create a Restful API?\",\n    \"content\": \"This is a article for creating a Restful API.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/notes",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "notes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/sign-in",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"title\": \"How to create a Restful API?\",\n    \"content\": \"This is a article for creating a Restful API.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/notes",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "notes"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
