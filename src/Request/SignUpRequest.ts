@@ -1,25 +1,19 @@
 
-// export class SignUpRequest {
-//
-//   username: string;
-//
-//   password: string;
-//
-//   constructor(requestBody: any = {}) {
-//     this.username = requestBody.username;
-//     this.password = requestBody.password;
-//   }
-// }
-
-
-import {validateLength} from "../Middleware/VaildateLength";
+import {IsString, Length, Matches} from "class-validator";
 export class SignUpRequest {
+
+  @IsString()
+  @Length(4, 100)
   username: string;
+
+  @IsString()
+  @Length(8, 100)
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!_@#$%^&*])/)
   password: string;
 
   constructor(requestBody: any = {}) {
-    this.username = validateLength(requestBody.username, 4, 8); // 添加长度验证
-    this.password = validateLength(requestBody.password, 6); // 添加长度验证
+    this.username = requestBody.username;
+    this.password = requestBody.password;
   }
 }
 

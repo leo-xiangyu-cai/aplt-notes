@@ -24,6 +24,7 @@ router.get('/notes/:id', async (ctx) => {
   const id = ctx.params.id;
   let note = await NoteDbModel.getById(id);
   if (note) {
+    ctx.status = 200;
     ctx.body = {
       message: 'success',
       data: {
