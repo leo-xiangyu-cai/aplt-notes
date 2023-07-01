@@ -39,7 +39,7 @@ export default class KoaApp {
   async start(environment: Environment = Environment.PROD) {
     // Unit tests are using the mock the data source
     // There is no need to connect to the database if running unit test
-    if (environment == Environment.TEST) {
+    if (environment !== Environment.TEST) {
       try {
         const dataSource = await DataSourceUtils.getDataSource().initialize();
         logger.info(`Data source ${dataSource.name} has been initialized!`);

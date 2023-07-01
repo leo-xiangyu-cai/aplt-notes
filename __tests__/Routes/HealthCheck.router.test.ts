@@ -1,5 +1,6 @@
 import {Server} from 'http';
-import {describe} from "node:test";
+// import {describe} from "node:test";
+// @ts-ignore
 import request from "supertest";
 import KoaApp from "../../src/KoaApp";
 import {Environment} from "../../src/Config";

@@ -1,7 +1,14 @@
+
+import {IsString, Length, Matches} from "class-validator";
 export class SignUpRequest {
 
+  @IsString()
+  @Length(4, 100)
   username: string;
 
+  @IsString()
+  @Length(8, 100)
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!_@#$%^&*])/)
   password: string;
 
   constructor(requestBody: any = {}) {
@@ -9,3 +16,4 @@ export class SignUpRequest {
     this.password = requestBody.password;
   }
 }
+
