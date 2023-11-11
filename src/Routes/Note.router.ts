@@ -3,7 +3,7 @@ import {AddNoteRequest} from "../Request/AddNoteRequest";
 import {UpdateNoteRequest} from "../Request/UpdateNoteRequest";
 import NoteDbModel from "../DataSource/Models/Note.db.model";
 
-const Authorise = require('../middleware/Authorise');
+const Authorise = require('../Middleware/Authorise');
 
 const router = new Router();
 

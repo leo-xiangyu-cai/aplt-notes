@@ -16,6 +16,33 @@ afterAll(done => {
 });
 
 describe("health-check.router", () => {
+  it("/ping1", async () => {
+    // act
+    const response = await request(server).get("/ping");
+
+    // assert
+    expect(response.status).toBe(200);
+    expect(response.type).toBe("application/json");
+    expect(response.body.message).toBe("pong");
+  });
+  it("/ping2", async () => {
+    // act
+    const response = await request(server).get("/ping");
+
+    // assert
+    expect(response.status).toBe(200);
+    expect(response.type).toBe("application/json");
+    expect(response.body.message).toBe("pong");
+  });
+  it("/ping3", async () => {
+    // act
+    const response = await request(server).get("/ping");
+
+    // assert
+    expect(response.status).toBe(200);
+    expect(response.type).toBe("application/json");
+    expect(response.body.message).toBe("pong");
+  });
   it("/ping", async () => {
     // act
     const response = await request(server).get("/ping");

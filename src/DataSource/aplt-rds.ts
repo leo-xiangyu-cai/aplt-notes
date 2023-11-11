@@ -4,8 +4,8 @@ import {config} from "../Config";
 export const ApltNotesDataSource = new DataSource({
   type: 'postgres',
   host: config.dbHost,
-  port: 5432,
-  username: 'postgres',
+  port: Number(config.dbPort),
+  username: config.dbUser,
   password: config.dbPassword,
   database: 'aplt-notes',
   entities: ['src/DataSource/Entities/*.ts'],

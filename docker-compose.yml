@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - "7654:7654"
+    environment:
+      - ENVIRONMENT=DEV
+      - TOKEN_SECRET=APLT-NOTE-SECRET
+      - PORT=7654
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    command: npm run start
+
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: aplt-notes
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+#volumes:
+#  postgres_data:
+
+
+# psql -U user -l
