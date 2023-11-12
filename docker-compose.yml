@@ -15,7 +15,6 @@ services:
     volumes:
       - .:/usr/app
       - /usr/app/node_modules
-    command: npm run start
 
   db:
     image: postgres
@@ -28,8 +27,4 @@ services:
       - "5434:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
-#volumes:
-#  postgres_data:
 
-
-# psql -U user -l

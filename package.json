@@ -12,7 +12,8 @@
     "start": "npm run build && ts-node-dev ./src/Server.ts",
     "test": "npm run build && NODE_ENV=TEST PORT=7788 jest --silent --no-coverage",
     "test:watch": "NODE_ENV=TEST PORT=7788 jest --watchAll",
-    "start:docker": "docker-compose up",
+    "start:docker": "docker-compose up -d",
+    "stop:docker": "docker-compose down",
     "test:docker": "docker run --name aplt-notes-test aplt-notes npm run test",
     "update-postman": "tsc && node ./dist/postman/update-collection.js"
   },
