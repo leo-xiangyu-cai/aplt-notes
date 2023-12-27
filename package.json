@@ -10,11 +10,12 @@
   "scripts": {
     "build": "tsc --build",
     "start": "npm run build && ts-node-dev ./src/Server.ts",
+    "start:local": "DB_HOST=tess npm run build && ts-node-dev ./src/Server.ts",
     "test": "npm run build && NODE_ENV=TEST PORT=7788 jest --silent --no-coverage",
     "test:watch": "NODE_ENV=TEST PORT=7788 jest --watchAll",
     "start:docker": "docker-compose up -d",
     "stop:docker": "docker-compose down",
-    "test:docker": "docker run --name aplt-notes-test aplt-notes npm run test",
+    "test:docker": "docker run --name aplt-notes-app aplt-notes npm run test",
     "update-postman": "tsc && node ./dist/postman/update-collection.js"
   },
   "jest": {
@@ -55,7 +56,9 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "axios": "^1.4.0",
+    "@aws-sdk/client-s3": "^3.454.0",
+    "@aws-sdk/s3-request-presigner": "^3.454.0",
+    "axios": "^1.6.3",
     "class-validator": "^0.14.0",
     "dotenv": "^16.3.1",
     "jsonwebtoken": "^9.0.0",

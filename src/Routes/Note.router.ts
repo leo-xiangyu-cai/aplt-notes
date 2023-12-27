@@ -40,7 +40,7 @@ router.post('/notes', Authorise, async (ctx) => {
   let note = await NoteDbModel.create(ctx.state.userId, addNoteRequest.title, addNoteRequest.content);
   ctx.status = 201;
   ctx.body = {
-    message: 'success:',
+    message: 'success',
     data: {
       note: note
     }
@@ -108,7 +108,6 @@ router.patch('/notes/:id', Authorise, async (ctx) => {
       }
     }
   }
-)
-;
+);
 
 export default router;

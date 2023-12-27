@@ -6,8 +6,9 @@ import {config, Environment} from "./Config";
 import koaLogger from "koa-logger";
 import healthCheckRouters from "./Routes/HealthCheck.router";
 import noteRouter from "./Routes/Note.router";
-import {DataSourceUtils} from "./DataSource/DataSourceUtils";
 import authRouter from "./Routes/Auth.router";
+import fileRouter from "./Routes/File.router";
+import {DataSourceUtils} from "./DataSource/DataSourceUtils";
 import {Server} from "http";
 import dotenv from "dotenv";
 
@@ -34,6 +35,7 @@ export default class KoaApp {
     this.app.use(healthCheckRouters.routes());
     this.app.use(noteRouter.routes());
     this.app.use(authRouter.routes());
+    this.app.use(fileRouter.routes());
   }
 
   async start(environment: Environment = Environment.PROD) {

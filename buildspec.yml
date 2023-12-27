@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY)
+
+  build:
+    commands:
+      - echo Building and Starting Docker containers...
+      - docker-compose up -d
+
+  post_build:
+    commands:
+      - echo Running tests...
+      - docker-compose exec app npm run test
+      - echo Pushing Docker image to ECR...
+      - docker-compose push app
+      - echo Writing image definitions file...
+      - printf '[{"name":"app","imageUri":"%s/app:latest"}]' $ECR_REPOSITORY > imagedefinitions.json
+      - echo Stopping Docker containers...
+      - docker-compose down
+
+artifacts:
+  files: imagedefinitions.json
