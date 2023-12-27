@@ -7,7 +7,9 @@ phases:
       - echo AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
       - echo ECR_REPOSITORY=$ECR_REPOSITORY
       - echo trigger build tag 3
-      - $(aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY)
+#      - $(aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_REPOSITORY)
+      - PASSWORD=$(aws ecr get-login-password --region $AWS_DEFAULT_REGION)
+      - echo $PASSWORD | docker login --username AWS --password-stdin $ECR_REPOSITORY
 
   build:
     commands:
