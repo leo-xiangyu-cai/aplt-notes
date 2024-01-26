@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     image: 403451207205.dkr.ecr.ap-southeast-2.amazonaws.com/aplt_notes
     ports:
-      - "7654:7654"
+      - "80:7654"
     environment:
       - ENVIRONMENT=DEV
       - TOKEN_SECRET=APLT-NOTE-SECRET
