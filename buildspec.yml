@@ -14,7 +14,8 @@ phases:
   build:
     commands:
       - echo Building and Starting Docker containers...
-      - docker-compose up -d
+#      - docker-compose up -d
+      - docker-compose build
 
   post_build:
     commands:
@@ -24,8 +25,8 @@ phases:
       - docker-compose push app
       - echo Writing image definitions file...
       - printf '[{"name":"app","imageUri":"%s/app:latest"}]' $ECR_REPOSITORY > imagedefinitions.json
-      - echo Stopping Docker containers...
-      - docker-compose down
+#      - echo Stopping Docker containers...
+#      - docker-compose down
 
 artifacts:
   files: imagedefinitions.json
