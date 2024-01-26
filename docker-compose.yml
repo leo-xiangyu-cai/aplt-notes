@@ -6,6 +6,7 @@ services:
       dockerfile: Dockerfile
     image: 403451207205.dkr.ecr.ap-southeast-2.amazonaws.com/aplt_notes
     ports:
+#      - test
       - "80:7654"
     environment:
       - ENVIRONMENT=DEV
