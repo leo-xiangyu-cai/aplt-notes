@@ -4,7 +4,7 @@ services:
   app:
     build:
       dockerfile: Dockerfile
-    image: 403451207205.dkr.ecr.ap-southeast-2.amazonaws.com/aplt_notes
+    image: aplt_notes
     ports:
 #      - test
       - "80:80"
