@@ -49,7 +49,7 @@ export default class KoaApp {
         logger.info(`Data source ${dataSource.name} has been initialized!`);
       } catch (err) {
         logger.error("Error during data source initialization: " + err);
-        throw err;  // if database initialization failed, then we should not start the server
+        // throw err;  // if database initialization failed, then we should not start the server
       }
     }
     this.server = this.app.listen(config.port, () => {

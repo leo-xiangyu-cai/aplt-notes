@@ -16,7 +16,7 @@ RUN npm install
 COPY . .
 
 # 暴露你的应用将要监听的端口，比如Koa默认3000
-EXPOSE 7654
+EXPOSE 80
 
 # 定义容器启动时执行的命令
 CMD [ "npm", "run", "start" ]
