@@ -12,4 +12,14 @@ router.get('/ping', async (ctx) => {
   }
 });
 
+router.get('/health', async (ctx) => {
+  try {
+    ctx.body = {
+      message: 'OK'
+    }
+  } catch (e) {
+    console.error(e);
+  }
+});
+
 export default router;
