@@ -26,7 +26,7 @@ phases:
       - echo $ECR_REPOSITORY
       - docker push $ECR_REPOSITORY/aplt_notes:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"ApltNotesTest","imageUri":"%s/aplt_notes:latest"}]' $ECR_REPOSITORY > imagedefinitions.json
+      - printf '[{"name":"ApltNotes","imageUri":"%s/aplt_notes:latest"}]' $ECR_REPOSITORY > imagedefinitions.json
 #      - echo Stopping Docker containers...
 #      - docker-compose down
 
