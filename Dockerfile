@@ -19,4 +19,5 @@ COPY . .
 EXPOSE 80
 
 # 定义容器启动时执行的命令
-CMD [ "npm", "run", "start" ]
+#CMD [ "npm", "run", "start" ]
+#CMD [ "npm", "run", "test" ]
