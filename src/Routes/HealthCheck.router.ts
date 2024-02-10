@@ -8,7 +8,7 @@ router.get('/', async (ctx) => {
 router.get('/ping', async (ctx) => {
   try {
     ctx.body = {
-      message: 'pong pong'
+      message: 'pong'
     }
   } catch (e) {
     console.error(e);
