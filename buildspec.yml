@@ -16,7 +16,7 @@ phases:
       - echo Building and Starting Docker containers...
 #      - docker-compose up -d
       - docker build -t aplt_notes .
-      - docker tag aplt_notes:latest $ECR_REPOSITORY/test:latest
+      - docker tag aplt_notes:latest $ECR_REPOSITORY:latest
 
   post_build:
     commands:
@@ -24,7 +24,7 @@ phases:
 #      - docker-compose exec app npm run test
       - echo Pushing Docker image to ECR...
       - echo $ECR_REPOSITORY
-      - docker push $ECR_REPOSITORY/test:latest
+      - docker push $ECR_REPOSITORY:latest
       - echo Writing image definitions file...
       - printf '[{"name":"ApltNotes","imageUri":"%s/aplt_notes:latest"}]' $ECR_REPOSITORY > imagedefinitions.json
 #      - echo Stopping Docker containers...
