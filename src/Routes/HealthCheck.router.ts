@@ -3,7 +3,13 @@ import Router from "koa-router";
 const router = new Router();
 
 router.get('/', async (ctx) => {
-  ctx.redirect('/ping');
+  try {
+    ctx.body = {
+      message: 'Appolution Notes API is running!!!!!'
+    }
+  } catch (e) {
+    console.error(e);
+  }
 });
 router.get('/ping', async (ctx) => {
   try {
